@@ -5,22 +5,20 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  as: Tag = "div",
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
-  as?: "div" | "section" | "li" | "article";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
           setShown(true);
           io.disconnect();
         }
@@ -32,12 +30,12 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag
+    <div
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
       className={cn("reveal", shown && "reveal-in", className)}
     >
       {children}
-    </Tag>
+    </div>
   );
 }

@@ -314,7 +314,14 @@ function Home() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <HomeContent />
+      <SiteFooter />
+    </div>
+  );
+}
 
+export function HomeContent() {
+  return (
       <main id="beranda">
         {/* HERO */}
         <section className="relative overflow-hidden">
@@ -925,8 +932,5 @@ function Home() {
           </div>
         </section>
       </main>
-
-      <SiteFooter />
-    </div>
   );
 }
